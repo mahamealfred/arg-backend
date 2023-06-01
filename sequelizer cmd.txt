@@ -1,0 +1,24 @@
+require('@babel/polyfill')
+const path = require('path')
+
+module.exports = {
+  config: path.resolve('./src/database/config', 'config.js'),
+  'models-path': path.resolve('./src/models'),
+  'seeders-path': path.resolve('./src/database/seeders'),
+  'migrations-path': path.resolve('./src/database/migrations'),
+}
+ sequelize.authenticate().then(() => 
+{ console.log('Connection has been established successfully.'); }).catch((error) =>
+ { console.error('Unable to connect to the database:', error); });
+
+
+npx sequelize-cli model:create --name Users --attributes fullName:string,email:string,password:string,role:string,districtId:string,memberId:string,isActive:Boolean
+
+npx sequelize-cli model:create --name Commitees --attributes userId:string,role:string,schoolId:string
+
+
+npx sequelize-cli model:create --name Families --attributes name:string,parents:Array,members:Array
+
+npx sequelize-cli model:create --name Schools --attributes name:string,type:string,districtId:string
+npx sequelize-cli model:create --name Members --attributes firstName:string,lastName:string,gender:string,schoolId:string
+npx sequelize db:migrate

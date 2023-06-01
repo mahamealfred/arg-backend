@@ -10,8 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@babel/plugin-transform-runtime": "^7.21.4",
-    "@babel/polyfill": "^7.12.1",
     "babel-plugin-module-resolver": "^5.0.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.2",
@@ -27,8 +25,11 @@
   "devDependencies": {
     "@babel/cli": "^7.21.5",
     "@babel/node": "^7.20.7",
+    "@babel/plugin-transform-runtime": "^7.22.4",
+    "@babel/polyfill": "^7.12.1",
     "@babel/preset-env": "^7.21.5",
     "@babel/register": "^7.21.0",
+    "@babel/runtime": "^7.22.3",
     "nodemon": "^2.0.22"
   }
 }
