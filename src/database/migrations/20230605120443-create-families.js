@@ -5,18 +5,18 @@ module.exports = {
     await queryInterface.createTable('Families', {
       id: {
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
+       
       },
       name: {
         type: Sequelize.STRING
       },
       parents: {
-        type: Sequelize.ARRAY
+        type: Sequelize.ARRAY(Sequelize.STRING)
       },
       members: {
-        type: Sequelize.ARRAY
+        type:Sequelize.ARRAY(Sequelize.STRING)
       },
       createdAt: {
         allowNull: false,

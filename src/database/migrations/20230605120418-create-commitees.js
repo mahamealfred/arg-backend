@@ -5,9 +5,8 @@ module.exports = {
     await queryInterface.createTable('Commitees', {
       id: {
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING,
       },
       userId: {
         type: Sequelize.STRING

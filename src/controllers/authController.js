@@ -2,7 +2,9 @@
 import Models from "../database/models";
 import bcrypt from "bcryptjs";
 import { encode } from "../helpers/jwtTokenizer";
-const { users } = Models;
+import { v4 as uuidv4 } from "uuid";
+const { Users } = Models;
+
 
 class authController {
   static async signup(req, res) {
@@ -13,11 +15,11 @@ class authController {
           message: "User with email already exists",
         });
       }
-    
       const { fullName, email, password, role } = req.body;
       const salt = await bcrypt.genSaltSync(10);
       const hashPassword = await bcrypt.hashSync(password, salt);
-      await users.create({
+      await Users.create({
+        id: uuidv4(),
         fullName,
         email,
         role,
@@ -46,7 +48,6 @@ class authController {
     const hashPassword = req.user.password;
     const decrePassword = await bcrypt.compare(password, hashPassword);
 
-    console.log(decrePassword);
     if (databaseEmail == email) {
       if (decrePassword) {
         const token = await encode({ email });
@@ -67,7 +68,7 @@ class authController {
   }
   static async getAllUser(req, res) {
     try {
-      const userData = await users.findAll();
+      const userData = await Users.findAll();
       res.status(200).json({
         status: 200,
         message: "all users ",
@@ -82,11 +83,11 @@ class authController {
   static async deleteUser(req, res) {
     try {
       const modelId = req.params.id;
-      const found = await users.findOne({
+      const found = await Users.findOne({
         where: { id: modelId },
       });
       if (found) {
-        const deleteUser = await users.destroy({
+        const deleteUser = await Users.destroy({
           where: { id: modelId },
         });
         return res.status(200).json({
