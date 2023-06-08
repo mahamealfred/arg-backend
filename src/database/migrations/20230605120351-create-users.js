@@ -26,6 +26,9 @@ module.exports = {
       memberId: {
         type: Sequelize.STRING
       },
+      schoolId: {
+        type: Sequelize.STRING
+      },
       isActive: {
         type: Sequelize.BOOLEAN
       },

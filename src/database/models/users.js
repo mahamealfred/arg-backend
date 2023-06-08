@@ -16,6 +16,11 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: "CASCADE",
         onUpdate: "CASCADE",
       });
+      Users.belongsTo(models.Schools, {
+        foreignKey: "schoolId",
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+      });
       // Users.belongsTo(models.Districts, {
       //   foreignKey: "districtId",
       //   onDelete: "CASCADE",
@@ -30,6 +35,7 @@ module.exports = (sequelize, DataTypes) => {
     role: DataTypes.STRING,
     districtId: DataTypes.STRING,
     memberId: DataTypes.STRING,
+    schoolId: DataTypes.STRING,
     isActive: DataTypes.BOOLEAN
   }, {
     sequelize,

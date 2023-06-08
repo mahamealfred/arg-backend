@@ -7,35 +7,30 @@ import { Sequelize } from "sequelize";
 const { Op, where, cast, col } = Sequelize;
 //const mailgun = require("mailgun-js");
 dotenv.config();
-const {  Districts,Provinces} = Models;
-class districtController{
-  static async addDistrict(req, res) {
-    const {districtName,provinceId}=req.body
+const {  Districts,Schools,Commitees} = Models;
+class commiteeController{
+  static async addCommitee(req, res) {
+    const {fullName,schoolId,role}=req.body
     try {
-      const checkProvince =await Provinces.findOne({
-        where:{id:provinceId},
+      const checkSchool =await Schools.findOne({
+        where:{id:schoolId},
       })
-     
-      if(!checkProvince){
+      if(!checkSchool){
         return res.status(400).json({
           status: 400,
-          message: "Province doesn't exist",
+          message: "School doesn't exist",
         });
       }
-      if (req.district) {
-        return res.status(400).json({
-          status: 400,
-          message: "District with this name already exist, please use another!",
-        });
-      }
-      await  Districts.create({
+      
+      await Commitees.create({
         id:uuidv4(),
-        districtName,
-        provinceId
+        fullName,
+        schoolId,
+        role
       });
       return res.status(200).json({
         status: 200,
-        message: "District have been Successfuly Added!",
+        message: "Commitee member have been Successfuly Added!",
       });
     } catch (error) {
       return res.status(500).json({
@@ -44,12 +39,12 @@ class districtController{
       });
     }
   }
-  static async getDristrits(req, res) {
+  static async getCommittees(req, res) {
     try {
-      const userData = await Districts.findAll();
+      const userData = await Commitees.findAll();
       res.status(200).json({
         status: 200,
-        message: "all users ",
+        message: "all  ",
         data: userData,
       });
     } catch (error) {
@@ -58,4 +53,4 @@ class districtController{
   }
 }
 
-export default districtController;
+export default commiteeController;

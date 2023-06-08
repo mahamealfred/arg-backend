@@ -11,11 +11,18 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Families.belongsTo(models.Schools, {
+        foreignKey: "schoolId",
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+      });
     }
   }
   Families.init({
     name: DataTypes.STRING,
-    parents: DataTypes.ARRAY(DataTypes.STRING),
+    fatherName: DataTypes.STRING,
+    motherName: DataTypes.STRING,
+    schoolId: DataTypes.STRING,
     members: DataTypes.ARRAY(DataTypes.STRING)
   }, {
     sequelize,

@@ -11,6 +11,16 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Schools.hasMany(models.Users, {
+        foreignKey: "schoolId",
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+      });
+      Schools.hasMany(models.Families, {
+        foreignKey: "schoolId",
+        onDelete: "CASCADE",
+        onUpdate: "CASCADE",
+      });
     }
   }
   Schools.init({

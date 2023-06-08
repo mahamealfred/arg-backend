@@ -12,11 +12,17 @@ module.exports = {
       name: {
         type: Sequelize.STRING
       },
-      parents: {
-        type: Sequelize.ARRAY(Sequelize.STRING)
+      fatherName: {
+        type: Sequelize.STRING
+      },
+      motherName: {
+        type: Sequelize.STRING
       },
       members: {
         type:Sequelize.ARRAY(Sequelize.STRING)
+      },
+      schoolId: {
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,

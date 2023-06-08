@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Commitees.init({
-    userId: DataTypes.STRING,
+    fullName: DataTypes.STRING,
     role: DataTypes.STRING,
     schoolId: DataTypes.STRING
   }, {

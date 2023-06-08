@@ -7,35 +7,35 @@ import { Sequelize } from "sequelize";
 const { Op, where, cast, col } = Sequelize;
 //const mailgun = require("mailgun-js");
 dotenv.config();
-const {  Districts,Provinces} = Models;
-class districtController{
-  static async addDistrict(req, res) {
-    const {districtName,provinceId}=req.body
+const {  Districts,Schools} = Models;
+class schoolController{
+  static async addSchool(req, res) {
+    const {name,districtId,type}=req.body
     try {
-      const checkProvince =await Provinces.findOne({
-        where:{id:provinceId},
+      const checkDistrict =await Districts.findOne({
+        where:{id:districtId},
       })
-     
-      if(!checkProvince){
+      if(!checkDistrict){
         return res.status(400).json({
           status: 400,
-          message: "Province doesn't exist",
+          message: "District doesn't exist",
         });
       }
-      if (req.district) {
+      if (req.school) {
         return res.status(400).json({
           status: 400,
-          message: "District with this name already exist, please use another!",
+          message: "School with this name already exist, please use another!",
         });
       }
-      await  Districts.create({
+      await Schools.create({
         id:uuidv4(),
-        districtName,
-        provinceId
+        name:name,
+        districtId,
+        type
       });
       return res.status(200).json({
         status: 200,
-        message: "District have been Successfuly Added!",
+        message: "School have been Successfuly Added!",
       });
     } catch (error) {
       return res.status(500).json({
@@ -44,9 +44,9 @@ class districtController{
       });
     }
   }
-  static async getDristrits(req, res) {
+  static async getSchools(req, res) {
     try {
-      const userData = await Districts.findAll();
+      const userData = await Schools.findAll();
       res.status(200).json({
         status: 200,
         message: "all users ",
@@ -58,4 +58,4 @@ class districtController{
   }
 }
 
-export default districtController;
+export default schoolController;
