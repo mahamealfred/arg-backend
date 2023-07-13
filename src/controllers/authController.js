@@ -15,14 +15,14 @@ class authController {
           message: "User with email already exists",
         });
       }
-      const { fullName, email, password, role } = req.body;
+      const { fullName, email, password} = req.body;
       const salt = await bcrypt.genSaltSync(10);
       const hashPassword = await bcrypt.hashSync(password, salt);
       await Users.create({
         id: uuidv4(),
         fullName,
         email,
-        role,
+        role:"User",
         password: hashPassword,
       });
       return res.status(201).json({
@@ -104,6 +104,41 @@ class authController {
       res
         .status(500)
         .json({ status: 500, message: "server error" + error.message });
+    }
+  }
+
+
+  static async updateUserRole(req, res) {
+    try {
+      const { role } = req.body;
+      const modelId = req.params.id;
+      const found = await Users.findOne({
+        where: { id: modelId },
+      });
+      if (found) {
+        const updatedStudent = await Users.update(
+          {
+            role
+          },
+          {
+            where: { id: modelId },
+            returning: true,
+          }
+        );
+        return res.status(201).json({
+          status: 201,
+          message: "User updated successfull!",
+          data: updatedStudent,
+        });
+      }
+      return res.status(404).json({
+        status: 404,
+        message: "User not found",
+      });
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ status: 500, message: "server  error" + error.message });
     }
   }
 }
